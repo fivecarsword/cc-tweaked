@@ -25,10 +25,6 @@ local function draw()
     mon.setBackgroundColor(colors.fromBlit("3"))
     mon.clear()
 
-    mon.setCursorPos(1, height)
-    mon.setBackgroundColor(colors.fromBlit("c"))
-    mon.write(string.rep(" ", width))
-
     mon.setCursorPos(x, y)
     mon.setTextColor(colors.fromBlit("b"))
     mon.write("P")
@@ -36,6 +32,10 @@ local function draw()
     mon.setCursorPos(o_x, o_y)
     mon.setTextColor(colors.fromBlit("e"))
     mon.write("@")
+
+    mon.setCursorPos(1, height)
+    mon.setBackgroundColor(colors.fromBlit("c"))
+    mon.write(string.rep(" ", width))
 end
 
 local function music()
