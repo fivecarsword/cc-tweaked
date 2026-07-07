@@ -33,18 +33,18 @@ end
 
 local function music()
     if (melody[melodyIdx + 1][3] <= melodyFrame) then
-        melodyIdx = (melodyIdx + 1) #melody
+        melodyIdx = (melodyIdx + 1) % #melody
         melodyFrame = 0
     end
 
-    if (melodyFrame == 0) then
+    if (melodyFrame == 0 and melody[melodyIdx + 1][1] ~= "") then
         speak.playNote(melody[melodyIdx + 1][1], 1, melody[melodyIdx + 1][2])
     end
 
     melodyFrame = melodyFrame + 1
 
     if (beat[beatIdx + 1][3] <= beatFrame) then
-        beatIdx = (beatIdx + 1) #beat
+        beatIdx = (beatIdx + 1) % #beat
         beatFrame = 0
     end
 
@@ -70,24 +70,24 @@ o_x = math.random(1, width)
 o_y = 0
 
 melody = {
-    {"bit", 6, 5},
-    {"bit", 10, 5},
-    {"bit", 13, 5},
-    {"bit", 18, 10},
-    {"", 0, 5},
-    {"bit", 13, 5},
-    {"bit", 18, 5},
-    {"bit", 11, 5},
-    {"bit", 15, 5},
-    {"bit", 18, 5},
-    {"bit", 11, 5},
-    {"", 0, 5},
-    {"bit", 18, 5},
-    {"bit", 15, 10},
+    {"bit", 6, 3},
+    {"bit", 10, 3},
+    {"bit", 13, 3},
+    {"bit", 18, 6},
+    {"", 0, 3},
+    {"bit", 13, 3},
+    {"bit", 18, 3},
+    {"bit", 11, 3},
+    {"bit", 15, 3},
+    {"bit", 18, 3},
+    {"bit", 11, 3},
+    {"", 0, 3},
+    {"bit", 18, 3},
+    {"bit", 15, 6},
 }
 beat = {
-    {"basedrum", 12, 5},
-    {"hat", 12, 5},
+    {"basedrum", 12, 3},
+    {"hat", 12, 3},
 }
 
 melodyIdx = 0
