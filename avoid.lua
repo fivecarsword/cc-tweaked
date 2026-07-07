@@ -1,4 +1,64 @@
-local function gameLogic()
+local function initTitle()
+    mon.setTextScale(1)
+
+    width, height = mon.getSize()
+end
+
+local function titleLogic()
+    if (relay.getInput("up")) then
+        return false
+    end
+
+    return true
+end
+
+local function drawTitle()
+    mon.setBackgroundColor(colors.fromBlit("3"))
+    mon.setTextColor(colors.fromBlit("a"))
+    mon.setCursorPos(1, 1)
+    mon.write("                    _     _ ")
+    mon.setCursorPos(1, 2)
+    mon.write("     /\            (_)   | |")
+    mon.setCursorPos(1, 3)
+    mon.write("    /  \__   _____  _  __| |")
+    mon.setCursorPos(1, 4)
+    mon.write("   / /\ \ \ / / _ \| |/ _` |")
+    mon.setCursorPos(1, 5)
+    mon.write("  / ____ \ V / (_) | | (_| |")
+    mon.setCursorPos(1, 6)
+    mon.write(" /_/    \_\_/ \___/|_|\__,_|")
+end
+
+local function titleLoop()
+    initTitle()
+    frame = 0
+
+    while (true) do
+
+        if (not titleLogic()) then
+            return
+        end
+
+        drawTitle()
+
+        frame = frame + 1
+        os.sleep(0.05)
+    end
+end
+
+local function initMain()
+    mon.setTextScale(3)
+
+    width, height = mon.getSize()
+
+    x = math.floor(width / 2)
+    y = height - 1
+
+    o_x = math.random(1, width)
+    o_y = 0
+end
+
+local function mainLogic()
     if (relay.getInput("left")) then
         x = math.max(1, x - 1)
     end
@@ -10,6 +70,7 @@ local function gameLogic()
     o_y = o_y + 1
 
     if (x == o_x and y == o_y) then
+        speak.playSound("entity.player.hurt")
         return false
     end
 
@@ -21,7 +82,7 @@ local function gameLogic()
     return true
 end
 
-local function draw()
+local function drawMain()
     mon.setBackgroundColor(colors.fromBlit("3"))
     mon.clear()
 
@@ -36,6 +97,27 @@ local function draw()
     mon.setCursorPos(1, height)
     mon.setBackgroundColor(colors.fromBlit("c"))
     mon.write(string.rep(" ", width))
+end
+
+local function mainLoop()
+    initMain()
+    frame = 0
+
+    while (true) do
+
+        if (frame % 2 == 0) then
+            if (not mainLogic()) then
+                return
+            end
+        end
+
+        drawMain()
+
+        music()
+
+        frame = frame + 1
+        os.sleep(0.05)
+    end
 end
 
 local function music()
@@ -65,16 +147,6 @@ end
 mon = peripheral.find("monitor")
 relay = peripheral.find("redstone_relay")
 speak = peripheral.find("speaker")
-
-mon.setTextScale(3)
-
-width, height = mon.getSize()
-
-x = math.floor(width / 2)
-y = height - 1
-
-o_x = math.random(1, width)
-o_y = 0
 
 melody = {
     {"bit", 6, 4},
@@ -106,18 +178,8 @@ beatFrame = 0
 frame = 0
 
 while (true) do
-    if (frame % 2 == 0) then
-        if (not gameLogic()) then
-            break
-        end
-    end
-
-    draw()
-
-    music()
-
-    frame = frame + 1
-    os.sleep(0.05)
+    titleLoop()
+    mainLoop()
 end
 
 mon.clear()
