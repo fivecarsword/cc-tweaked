@@ -148,10 +148,6 @@ local function drawMain()
     mon.setBackgroundColor(colors.fromBlit("3"))
     mon.clear()
 
-    mon.setCursorPos(1, 1)
-    mon.setTextColor(colors.fromBlit("4"))
-    mon.write(toString(score))
-
     mon.setCursorPos(x, y)
     mon.setTextColor(colors.fromBlit("b"))
     mon.write("P")
@@ -159,6 +155,10 @@ local function drawMain()
     mon.setCursorPos(o_x, o_y)
     mon.setTextColor(colors.fromBlit("e"))
     mon.write("@")
+
+    mon.setCursorPos(1, 1)
+    mon.setTextColor(colors.fromBlit("4"))
+    mon.write(tostring(score))
 
     mon.setCursorPos(1, height)
     mon.setBackgroundColor(colors.fromBlit("c"))
