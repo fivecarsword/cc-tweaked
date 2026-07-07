@@ -1,5 +1,3 @@
-// wget https://raw.githubusercontent.com/fivecarsword/cc-tweaked/master/avoid.lua
-
 local function gameLogic()
     if (relay.getInput("left")) then
         x = math.max(1, x - 1)
@@ -34,13 +32,13 @@ local function draw()
 end
 
 local function music()
-    if (beat[beatIdx][1] <= beatFrame) then
+    if (beat[beatIdx + 1][2] <= beatFrame) then
         beatIdx = (beatIdx + 1) #beat
         beatFrame = 0
     end
 
     if (beatFrame == 0) then
-        speak.playNote(beat[beatIdx][0], 1, 12)
+        speak.playNote(beat[beatIdx][1], 1, 12)
     end
 
     beatFrame = beatFrame + 1
@@ -50,7 +48,7 @@ mon = peripheral.find("monitor")
 relay = peripheral.find("redstone_relay")
 speak = peripheral.find("speaker")
 
-mon.setTextSale(3)
+mon.setTextScale(3)
 
 width, height = mon.getSize()
 

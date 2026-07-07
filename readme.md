@@ -1,0 +1,1 @@
+wget https://raw.githubusercontent.com/fivecarsword/cc-tweaked/master/avoid.lua
