@@ -48,7 +48,7 @@ end
 
 local function drawTitle()
 
-    mon.setBackgroundColor(colors.fromBlit("7"))
+    mon.setBackgroundColor(colors.fromBlit("f"))
     mon.setTextColor(colors.fromBlit("4"))
 
     mon.clear()
@@ -79,9 +79,11 @@ local function drawTitle()
     mon.setCursorPos(1, 13)
     mon.write(" \\_____|\\__,_|_| |_| |_|\\___| ")
     
-    mon.setTextColor(colors.fromBlit("b"))
-    mon.setCursorPos(1, 19)
-    mon.write("     Press Space to Start!    ")
+    if (frame % 16 < 8) then
+        mon.setTextColor(colors.fromBlit("b"))
+        mon.setCursorPos(1, 20)
+        mon.write("     Press Space to Start!    ")
+    end
 end
 
 local function titleLoop()
@@ -110,7 +112,9 @@ local function initMain()
     y = height - 1
 
     o_x = math.random(1, width)
-    o_y = 0
+    o_y = -4
+
+    score = 0
 
     initMusic()
 end
@@ -134,6 +138,7 @@ local function mainLogic()
     if (o_y >= height) then
         o_y = 0
         o_x = math.random(1, width)
+        score = score + 1
     end
 
     return true
@@ -142,6 +147,10 @@ end
 local function drawMain()
     mon.setBackgroundColor(colors.fromBlit("3"))
     mon.clear()
+
+    mon.setCursorPos(1, 1)
+    mon.setTextColor(colors.fromBlit("4"))
+    mon.write(toString(score))
 
     mon.setCursorPos(x, y)
     mon.setTextColor(colors.fromBlit("b"))
