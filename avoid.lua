@@ -1,3 +1,27 @@
+local function music()
+    if (melody[melodyIdx + 1][3] <= melodyFrame) then
+        melodyIdx = (melodyIdx + 1) % #melody
+        melodyFrame = 0
+    end
+
+    if (melodyFrame == 0 and melody[melodyIdx + 1][1] ~= "") then
+        speak.playNote(melody[melodyIdx + 1][1], 1, melody[melodyIdx + 1][2])
+    end
+
+    melodyFrame = melodyFrame + 1
+
+    if (beat[beatIdx + 1][3] <= beatFrame) then
+        beatIdx = (beatIdx + 1) % #beat
+        beatFrame = 0
+    end
+
+    if (beatFrame == 0 and beat[beatIdx + 1][1] ~= "") then
+        speak.playNote(beat[beatIdx + 1][1], 1, beat[beatIdx + 1][2])
+    end
+
+    beatFrame = beatFrame + 1
+end
+
 local function initTitle()
     mon.setTextScale(1)
 
@@ -13,20 +37,21 @@ local function titleLogic()
 end
 
 local function drawTitle()
-    mon.setBackgroundColor(colors.fromBlit("3"))
-    mon.setTextColor(colors.fromBlit("a"))
-    mon.setCursorPos(1, 1)
+    mon.setBackgroundColor(colors.fromBlit("7"))
+    mon.setTextColor(colors.fromBlit("4"))
+
+    mon.setCursorPos(1, 2)
     mon.write("                    _     _ ")
     mon.setCursorPos(1, 2)
-    mon.write("     /\            (_)   | |")
-    mon.setCursorPos(1, 3)
-    mon.write("    /  \__   _____  _  __| |")
-    mon.setCursorPos(1, 4)
-    mon.write("   / /\ \ \ / / _ \| |/ _` |")
-    mon.setCursorPos(1, 5)
-    mon.write("  / ____ \ V / (_) | | (_| |")
-    mon.setCursorPos(1, 6)
-    mon.write(" /_/    \_\_/ \___/|_|\__,_|")
+    mon.write("     /\\            (_)   | |")
+    mon.setCursorPos(1, 2)
+    mon.write("    /  \\__   _____  _  __| |")
+    mon.setCursorPos(1, 2)
+    mon.write("   / /\\ \\ \\ / / _ \\| |/ _` |")
+    mon.setCursorPos(1, 2)
+    mon.write("  / ____ \\ V / (_) | | (_| |")
+    mon.setCursorPos(1, 2)
+    mon.write(" /_/    \\_\\_/ \\___/|_|\\__,_|")
 end
 
 local function titleLoop()
@@ -118,30 +143,6 @@ local function mainLoop()
         frame = frame + 1
         os.sleep(0.05)
     end
-end
-
-local function music()
-    if (melody[melodyIdx + 1][3] <= melodyFrame) then
-        melodyIdx = (melodyIdx + 1) % #melody
-        melodyFrame = 0
-    end
-
-    if (melodyFrame == 0 and melody[melodyIdx + 1][1] ~= "") then
-        speak.playNote(melody[melodyIdx + 1][1], 1, melody[melodyIdx + 1][2])
-    end
-
-    melodyFrame = melodyFrame + 1
-
-    if (beat[beatIdx + 1][3] <= beatFrame) then
-        beatIdx = (beatIdx + 1) % #beat
-        beatFrame = 0
-    end
-
-    if (beatFrame == 0 and beat[beatIdx + 1][1] ~= "") then
-        speak.playNote(beat[beatIdx + 1][1], 1, beat[beatIdx + 1][2])
-    end
-
-    beatFrame = beatFrame + 1
 end
 
 mon = peripheral.find("monitor")
