@@ -22,19 +22,19 @@ local function gameLogic()
 end
 
 local function draw()
-    mon.setBackgroundColor("3")
+    mon.setBackgroundColor(colors.fromBlit("3"))
     mon.clear()
 
     mon.setCursorPos(1, height)
-    mon.setBackgroundColor("c")
+    mon.setBackgroundColor(colors.fromBlit("c"))
     mon.write(string.rep(" ", width))
 
     mon.setCursorPos(x, y)
-    mon.setTextColor("b")
+    mon.setTextColor(colors.fromBlit("b"))
     mon.write("P")
 
     mon.setCursorPos(o_x, o_y)
-    mon.setTextColor("e")
+    mon.setTextColor(colors.fromBlit("e"))
     mon.write("@")
 end
 
