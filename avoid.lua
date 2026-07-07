@@ -29,7 +29,7 @@ local function initTitle()
 end
 
 local function titleLogic()
-    if (relay.getInput("up")) then
+    if (relay.getInput("top")) then
         return false
     end
 
@@ -44,17 +44,17 @@ local function drawTitle()
     mon.clear()
 
     mon.setCursorPos(1, 2)
-    mon.write("                    _     _ ")
+    mon.write("       _____           _     ")
     mon.setCursorPos(1, 3)
-    mon.write("     /\\            (_)   | |")
+    mon.write("      / ____|         | |    ")
     mon.setCursorPos(1, 4)
-    mon.write("    /  \\__   _____  _  __| |")
+    mon.write("     | |  __  ___   __| |    ")
     mon.setCursorPos(1, 5)
-    mon.write("   / /\\ \\ \\ / / _ \\| |/ _` |")
+    mon.write("     | | |_ |/ _ \\ / _` |    ")
     mon.setCursorPos(1, 6)
-    mon.write("  / ____ \\ V / (_) | | (_| |")
+    mon.write("     | |__| | (_) | (_| |    ")
     mon.setCursorPos(1, 7)
-    mon.write(" /_/    \\_\\_/ \\___/|_|\\__,_|")
+    mon.write("      \\_____|\\___/ \\__,_|    ")
 
     mon.setCursorPos(1, 8)
     mon.write(" _____                      ")
@@ -63,15 +63,15 @@ local function drawTitle()
     mon.setCursorPos(1, 10)
     mon.write("| |  __  __ _ _ __ ___   ___ ")
     mon.setCursorPos(1, 11)
-    mon.write("| | |_ |/ _` | '_ ` _ \\ / _ \")
+    mon.write("| | |_ |/ _` | '_ ` _ \\ / _ \\")
     mon.setCursorPos(1, 12)
     mon.write("| |__| | (_| | | | | | |  __/")
     mon.setCursorPos(1, 13)
-    mon.write("\\_____|\\__,_|_| |_| |_|\\___| ")
+    mon.write(" \\_____|\\__,_|_| |_| |_|\\___| ")
     
-    mon.setCursorPos(1, 17)
     mon.setTextColor(colors.fromBlit("b"))
-    mon.write(" Press the spacebar to start ")
+    mon.setCursorPos(1, 17)
+    mon.write("     Press Space to Start!    ")
 end
 
 local function titleLoop()
