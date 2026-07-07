@@ -32,13 +32,24 @@ local function draw()
 end
 
 local function music()
-    if (beat[beatIdx + 1][2] <= beatFrame) then
+    if (melody[melodyIdx + 1][3] <= melodyFrame) then
+        melodyIdx = (melodyIdx + 1) #melody
+        melodyFrame = 0
+    end
+
+    if (melodyFrame == 0) then
+        speak.playNote(melody[melodyIdx + 1][1], 1, melody[melodyIdx + 1][2])
+    end
+
+    melodyFrame = melodyFrame + 1
+
+    if (beat[beatIdx + 1][3] <= beatFrame) then
         beatIdx = (beatIdx + 1) #beat
         beatFrame = 0
     end
 
-    if (beatFrame == 0) then
-        speak.playNote(beat[beatIdx][1], 1, 12)
+    if (beatFrame == 0 and beat[beatIdx + 1][1] ~= "") then
+        speak.playNote(beat[beatIdx + 1][1], 1, beat[beatIdx + 1][2])
     end
 
     beatFrame = beatFrame + 1
@@ -59,10 +70,24 @@ o_x = math.random(1, width)
 o_y = 0
 
 melody = {
-
+    {"bit", 6, 5},
+    {"bit", 10, 5},
+    {"bit", 13, 5},
+    {"bit", 18, 10},
+    {"", 0, 5},
+    {"bit", 13, 5},
+    {"bit", 18, 5},
+    {"bit", 11, 5},
+    {"bit", 15, 5},
+    {"bit", 18, 5},
+    {"bit", 11, 5},
+    {"", 0, 5},
+    {"bit", 18, 5},
+    {"bit", 15, 10},
 }
 beat = {
-    {"basedrum", 5}
+    {"basedrum", 12, 5},
+    {"hat", 12, 5},
 }
 
 melodyIdx = 0
