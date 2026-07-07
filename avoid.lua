@@ -1,3 +1,13 @@
+local function initMusic()
+    melodyIdx = 0
+    melodyFrame = 0
+
+    beatIdx = 0
+    beatFrame = 0
+
+    frame = 0
+end
+
 local function music()
     if (melody[melodyIdx + 1][3] <= melodyFrame) then
         melodyIdx = (melodyIdx + 1) % #melody
@@ -70,7 +80,7 @@ local function drawTitle()
     mon.write(" \\_____|\\__,_|_| |_| |_|\\___| ")
     
     mon.setTextColor(colors.fromBlit("b"))
-    mon.setCursorPos(1, 17)
+    mon.setCursorPos(1, 19)
     mon.write("     Press Space to Start!    ")
 end
 
@@ -101,6 +111,8 @@ local function initMain()
 
     o_x = math.random(1, width)
     o_y = 0
+
+    initMusic()
 end
 
 local function mainLogic()
@@ -189,14 +201,6 @@ beat = {
     {"basedrum", 12, 4},
     {"hat", 12, 4},
 }
-
-melodyIdx = 0
-melodyFrame = 0
-
-beatIdx = 0
-beatFrame = 0
-
-frame = 0
 
 while (true) do
     titleLoop()
