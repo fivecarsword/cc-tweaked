@@ -111,8 +111,8 @@ local function initMain()
     x = math.floor(width / 2)
     y = height - 1
 
-    o_x = math.random(1, width)
-    o_y = -4
+    o_x = {math.random(1, width), math.random(1, width), math.random(1, width)}
+    o_y = {-5, -10, -15, 20}
 
     score = 0
 
@@ -128,17 +128,19 @@ local function mainLogic()
         x = math.min(width, x + 1)
     end
 
-    o_y = o_y + 1
+    for i=1,#o_x do
+        o_y[i] = o_y[i] + 1
 
-    if (x == o_x and y == o_y) then
-        speak.playSound("entity.player.hurt")
-        return false
-    end
+        if (x == o_x[i] and y == o_y[i]) then
+            speak.playSound("entity.player.hurt")
+            return false
+        end
 
-    if (o_y >= height) then
-        o_y = 0
-        o_x = math.random(1, width)
-        score = score + 1
+        if (o_y[i] >= height) then
+            o_y[i] = 0
+            o_x[i] = math.random(1, width)
+            score = score + 1
+        end
     end
 
     return true
@@ -152,9 +154,11 @@ local function drawMain()
     mon.setTextColor(colors.fromBlit("b"))
     mon.write("P")
 
-    mon.setCursorPos(o_x, o_y)
-    mon.setTextColor(colors.fromBlit("e"))
-    mon.write("@")
+    for i=1,#o_x do
+        mon.setCursorPos(o_x[i], o_y[i])
+        mon.setTextColor(colors.fromBlit("e"))
+        mon.write("@")
+    end
 
     mon.setCursorPos(1, 1)
     mon.setTextColor(colors.fromBlit("4"))
