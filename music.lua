@@ -59,8 +59,8 @@ if not choice or not songs[choice] then
     return
 end
 
-local selected_song = songs[choice]
-print("\nPlaying: " .. selected_song)
+local selected_song_id = choice
+print("\nPlaying song #" .. selected_song_id)
 
 -- 3. 청크 단위로 스트리밍 및 재생
 local decoder = dfpwm.make_decoder()
@@ -71,7 +71,7 @@ while true do
     -- 다음 청크 요청
     ws.send(textutils.serializeJSON({
         action = "chunk",
-        song = selected_song,
+        song_id = selected_song_id,
         offset = offset,
         size = chunkSize
     }))
@@ -110,3 +110,4 @@ end
 
 ws.close()
 print("Disconnected from server.")
+
