@@ -12,7 +12,7 @@ local wsURL = "ws://192.168.35.120:51155"
 print("Connecting to microphone server (" .. wsURL .. ")...")
 
 local ws, err = http.websocket(wsURL)
-if not ws then
+if not ws then  
     print("Failed to connect: " .. tostring(err))
     return
 end
@@ -33,6 +33,21 @@ while true do
     if isBin and #chunk > 0 then
         -- 수신된 DFPWM 데이터를 디코딩
         local buffer = decoder(chunk)
+        
+        -- 버퍼의 평균 소리 크기(절댓값)를 계산하여 볼륨 바 표시
+        local sum = 0
+        for i = 1, #buffer do
+            sum = sum + math.abs(buffer[i])
+        end
+        local avg = #buffer > 0 and (sum / #buffer) or 0
+        
+        -- 볼륨 바 그리기 (최대 30칸)
+        local barLen = math.floor(avg / 3) 
+        if barLen > 30 then barLen = 30 end
+        local x, y = term.getCursorPos()
+        term.setCursorPos(1, y)
+        term.clearLine()
+        term.write("[Mic In] |" .. string.rep("#", barLen) .. string.rep(" ", 30 - barLen) .. "|")
         
         -- 스피커에 버퍼 공간이 생길 때까지 대기하며 재생
         while not speaker.playAudio(buffer) do
